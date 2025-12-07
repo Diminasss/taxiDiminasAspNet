@@ -1,0 +1,92 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Lab5.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="ru">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %></title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+</head>
+
+<body>
+<form runat="server">
+
+    <!-- Навбар -->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container">
+
+            <asp:HyperLink runat="server" NavigateUrl="~/" CssClass="navbar-brand">Taxi Diminas</asp:HyperLink>
+
+            <button class="navbar-toggler" type="button" 
+                    data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+
+                <!-- Левые ссылки -->
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <asp:HyperLink runat="server" NavigateUrl="~/" CssClass="nav-link">Домашняя страница</asp:HyperLink>
+                    </li>
+                    <li class="nav-item">
+                        <asp:HyperLink runat="server" NavigateUrl="~/Selection.aspx" CssClass="nav-link">Сделать выборку</asp:HyperLink>
+                    </li>
+                    <li class="nav-item">
+                        <asp:HyperLink runat="server" NavigateUrl="~/About" CssClass="nav-link">Информация</asp:HyperLink>
+                    </li>
+                    <li class="nav-item">
+                        <asp:HyperLink runat="server" NavigateUrl="~/Contact" CssClass="nav-link">Связаться с нами</asp:HyperLink>
+                    </li>
+                </ul>
+
+                
+
+                <!-- Кнопки Авторизация / Выйти -->
+                <ul class="navbar-nav ms-3">
+
+                    <!-- Авторизация -->
+                    <li class="nav-item">
+                        <asp:HyperLink ID="hlLogin" runat="server"
+                            CssClass="btn btn-warning ms-2" 
+                            NavigateUrl="~/Login.aspx">
+                            Авторизация
+                        </asp:HyperLink>
+                    </li>
+
+                    <!-- Выйти -->
+                    <li class="nav-item">
+                        <asp:LinkButton ID="btnLogout" runat="server"
+                            CssClass="btn btn-danger ms-2"
+                            OnClick="btnLogout_Click"
+                            Visible="false">
+                            Выйти
+                        </asp:LinkButton>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Контент -->
+    <div class="container body-content">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        <hr />
+        <footer>
+            <p>&copy; <%: "Diminas Taxi - " + DateTime.Now.Year %></p>
+        </footer>
+    </div>
+
+</form>
+</body>
+</html>
