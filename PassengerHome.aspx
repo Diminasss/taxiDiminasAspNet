@@ -8,7 +8,15 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="h3 mb-0">Добро пожаловать, <asp:Label ID="lblUserName" runat="server" CssClass="fw-bold"></asp:Label></h1>
+            <h1 class="h3 mb-0">
+                Добро пожаловать, 
+                <asp:Label ID="lblUserName" runat="server" CssClass="fw-bold"></asp:Label>
+                &nbsp;
+                <!-- Иконка карандаша -->
+                <a href="EditPassenger.aspx" title="Редактировать данные">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+            </h1>
             <small class="text-muted">Здесь вы можете заказать поездку или просмотреть историю</small>
         </div>
 
@@ -24,9 +32,7 @@
     <asp:Panel ID="pnlCurrentTrip" runat="server">
         <div class="card shadow-sm mb-4">
             <div class="card-body">
-                <asp:Label ID="lblTripNotFound" runat="server" CssClass="text-muted">
-                    Загрузка...
-                </asp:Label>
+                <asp:Label ID="lblTripNotFound" runat="server" CssClass="text-muted">Загрузка...</asp:Label>
 
                 <div id="tripDetails" runat="server" visible="false">
                     <div class="row">
@@ -46,7 +52,6 @@
                     </div>
 
                     <div class="mt-3">
-                        <!-- опционально: добавить кнопку отмены/связаться -->
                         <asp:Button ID="btnRefresh" runat="server" CssClass="btn btn-sm btn-outline-primary" Text="Обновить" OnClick="btnRefresh_Click" />
                     </div>
                 </div>
@@ -57,5 +62,8 @@
     <asp:Label ID="lblMessage" runat="server" CssClass="text-danger"></asp:Label>
 
 </div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 </asp:Content>

@@ -1,74 +1,105 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Configuration;
+using System.Web.UI;
 
 namespace Lab5
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login : Page
     {
-        string connStr = ConfigurationManager.ConnectionStrings["TaxiDB"].ConnectionString;
-        // string connStr = "server=localhost;database=YOUR_DB;uid=YOUR_USER;pwd=YOUR_PASSWORD;charset=utf8;";
+        private readonly string connStr = ConfigurationManager.ConnectionStrings["TaxiDB"].ConnectionString;
 
-        protected void btnLogin_Click(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            string login = txtLogin.Text.Trim();
-            string password = txtPassword.Text.Trim();
-
-            using (MySqlConnection conn = new MySqlConnection(connStr))
+            if (!IsPostBack)
             {
-                conn.Open();
-
-                string query = "SELECT passengerID FROM Passenger WHERE passengerLogin=@login AND passengerPassword=@pass LIMIT 1";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@login", login);
-                cmd.Parameters.AddWithValue("@pass", password);
-
-                object result = cmd.ExecuteScalar();
-
-                if (result != null)
-                {
-                    // успешный вход как пассажир
-                    Session["userID"] = result;
-                    Session["role"] = "passenger";
-
-                    Response.Redirect("~/PassengerHome.aspx");
-                }
-                else
-                {
-                    lblMessage.Text = "Неверный логин или пароль пассажира.";
-                }
+                lblMessage.Text = "";
             }
         }
 
-
-        protected void btnWorkerLogin_Click(object sender, EventArgs e)
+        protected void btnLogin_Click(object sender, EventArgs e)
         {
+            // Простая серверная валидация
+            if (!Page.IsValid) return;
+
             string login = txtLogin.Text.Trim();
             string password = txtPassword.Text.Trim();
 
-            using (MySqlConnection conn = new MySqlConnection(connStr))
+            try
             {
-                conn.Open();
-
-                string query = "SELECT workerID FROM Worker WHERE workerLogin=@login AND workerPassword=@pass LIMIT 1";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@login", login);
-                cmd.Parameters.AddWithValue("@pass", password);
-
-                object result = cmd.ExecuteScalar();
-
-                if (result != null)
+                using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
-                    // успешный вход как работник
-                    Session["workerID"] = result;
-                    Session["role"] = "worker";
+                    conn.Open();
 
-                    Response.Redirect("~/WorkerHome.aspx");
+                    string query = "SELECT passengerID FROM Passenger WHERE passengerLogin=@login AND passengerPassword=@pass LIMIT 1";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@login", login);
+                        cmd.Parameters.AddWithValue("@pass", password);
+
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null)
+                        {
+                            Session["userID"] = result;
+                            Session["role"] = "passenger";
+
+                            Response.Redirect("~/PassengerHome.aspx", false);
+                            Context.ApplicationInstance.CompleteRequest();
+                        }
+                        else
+                        {
+                            lblMessage.Text = "Неверный логин или пароль пассажира.";
+                        }
+                    }
                 }
-                else
+            }
+            catch (Exception ex)
+            {
+                // Логирование сюда при необходимости
+                lblMessage.Text = "Ошибка при подключении к базе данных.";
+            }
+        }
+
+        protected void btnWorkerLogin_Click(object sender, EventArgs e)
+        {
+            if (!Page.IsValid) return;
+
+            string login = txtLogin.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
-                    lblMessage.Text = "Неверный логин или пароль работника.";
+                    conn.Open();
+
+                    string query = "SELECT workerID FROM Worker WHERE workerLogin=@login AND workerPassword=@pass LIMIT 1";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@login", login);
+                        cmd.Parameters.AddWithValue("@pass", password);
+
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null)
+                        {
+                            Session["workerID"] = result;
+                            Session["role"] = "worker";
+
+                            Response.Redirect("~/WorkerHome.aspx", false);
+                            Context.ApplicationInstance.CompleteRequest();
+                        }
+                        else
+                        {
+                            lblMessage.Text = "Неверный логин или пароль работника.";
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Ошибка при подключении к базе данных.";
             }
         }
     }
