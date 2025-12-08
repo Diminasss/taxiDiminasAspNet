@@ -11,26 +11,8 @@ namespace Lab5
 {
 
 
-    public partial class Login
+    public partial class TripHistory
     {
-
-        /// <summary>
-        /// txtLogin элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLogin;
-
-        /// <summary>
-        /// txtPassword элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
 
         /// <summary>
         /// lblMessage элемент управления.
@@ -42,30 +24,66 @@ namespace Lab5
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// btnLogin элемент управления.
+        /// gvTrips элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.GridView gvTrips;
 
         /// <summary>
-        /// btnWorkerLogin элемент управления.
+        /// pnlFeedbackModal элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnWorkerLogin;
+        protected global::System.Web.UI.WebControls.Panel pnlFeedbackModal;
 
         /// <summary>
-        /// btnRegister элемент управления.
+        /// lblFeedbackMessage элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRegister;
+        protected global::System.Web.UI.WebControls.Label lblFeedbackMessage;
+
+        /// <summary>
+        /// ddlMark элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMark;
+
+        /// <summary>
+        /// txtFeedbackText элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFeedbackText;
+
+        /// <summary>
+        /// btnCancelFeedback элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelFeedback;
+
+        /// <summary>
+        /// btnSubmitFeedback элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitFeedback;
     }
 }
