@@ -1,0 +1,8 @@
+# Third-party JavaScript libraries and ASP.NET Web Forms client scripts
+Scripts/** linguist-vendored
+
+# Third-party Bootstrap styles and source maps
+Content/bootstrap* linguist-vendored
+
+# Files generated automatically by Visual Studio
+*.designer.cs linguist-generated
